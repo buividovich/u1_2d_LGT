@@ -1,0 +1,7 @@
+*.o
+*.exe
+.vscode/
+*.zip
+qmc_main
+data/
+tmp/
