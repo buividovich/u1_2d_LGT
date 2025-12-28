@@ -23,9 +23,6 @@ LGT_QMC::LGT_QMC(int argc, char* argv[]) : LGTDescriptor(argc, argv), gen(rd())
     T0Tt          = new t_complex[(LT+1)*LS*LS]; std::fill(T0Tt,    T0Tt   + (LT+1)*LS*LS,  t_complex(0.0, 0.0));
     TtT0          = new t_complex[(LT+1)*LS*LS]; std::fill(TtT0,    TtT0   + (LT+1)*LS*LS,  t_complex(0.0, 0.0));
     //Allocate memory for the eigensystem calculation
-    /*revecs        = new t_complex[LS*LS]; 
-    levecs        = new t_complex[LS*LS];
-    evals         = new t_complex[LS];*/ //TODO: deprecated, should eventually be removed
     evecs = new t_complex[LS*LS];
     evals = new double[LS];
 
@@ -157,8 +154,6 @@ LGT_QMC::~LGT_QMC()
     delete[] T0Tt; 
     delete[] TtT0;
 
-    /*delete[] revecs;
-    delete[] levecs;*/ //TODO: deprecated, should eventually be removed
     delete[] evecs;
     delete[] evals;
 
@@ -484,7 +479,6 @@ void LGT_QMC::diagonalize_single_particle_hamiltonian()
     if(info != 0) { std::cerr << ansi::red << "LAPACKE_zheev failed, info = " << ansi::yellow << info << ansi::reset << std::endl; return; };
     transpose(evecs, LS);
     sort_eigensystem(evals, evecs, LS, LS);
-    //TODO: check ortogonality and normalization of evecs here
 }
 
 void LGT_QMC::OO_spf(t_complex* O, double* hist)
